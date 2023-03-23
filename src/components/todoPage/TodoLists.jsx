@@ -113,7 +113,7 @@ const TodoLists = () => {
   return (
     <div>
       {submitLoading ? (
-        <div className="flex justify-center items-center w-full h-full">
+        <div className="loader">
           <Loader />
         </div>
       ) : undefined}

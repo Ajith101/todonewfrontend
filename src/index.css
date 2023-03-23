@@ -21,3 +21,11 @@ body {
     transform: rotate(360deg);
   }
 }
+
+.loader {
+  z-index: 20;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
