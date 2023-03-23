@@ -15,6 +15,7 @@ const TodoLists = () => {
     addORedite,
     setAddORedites,
     setSingleTodo,
+    loading,
   } = useContext(getAllTodoList);
 
   // remove todo and update todo
@@ -104,6 +105,7 @@ const TodoLists = () => {
 
   return (
     <div>
+      {loading ? <h1>loading</h1> : undefined}
       <h1 className="text-xl font-bold py-3">Lists Of Todos</h1>
       {allTodo.length > 0 ? (
         <div className="flex flex-col gap-2">{displayTodos}</div>

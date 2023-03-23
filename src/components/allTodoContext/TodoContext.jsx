@@ -10,12 +10,17 @@ const TodoContext = ({ children }) => {
   const [inputTodo, setInputTodo] = useState("");
   const [addORedite, setAddORedites] = useState(false);
   const [singleTodo, setSingleTodo] = useState("");
+  const [loading, setLOading] = useState(false);
 
   async function getTodos() {
+    setLOading(true);
     axios
       .get(`${BASE_URL}/todos/api/`)
-      .then((res) => setAllTodo(res.data))
+      .then((res) => {
+        setAllTodo(res.data);
+      })
       .catch((err) => console.log(err));
+    setLOading(false);
   }
 
   useEffect(() => {
@@ -33,6 +38,7 @@ const TodoContext = ({ children }) => {
         setAddORedites,
         singleTodo,
         setSingleTodo,
+        loading,
       }}
     >
       {children}
