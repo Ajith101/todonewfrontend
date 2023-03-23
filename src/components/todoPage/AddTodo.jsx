@@ -11,6 +11,7 @@ const AddTodo = () => {
     addORedite,
     setAddORedites,
     singleTodo,
+    setSubmitLoading,
   } = useContext(getAllTodoList);
 
   //   add todo
@@ -18,6 +19,7 @@ const AddTodo = () => {
     if (inputTodo === "") {
       return;
     } else {
+      setSubmitLoading(true);
       axios
         .post(`${BASE_URL}/todos/api/`, {
           todo: inputTodo,
@@ -26,6 +28,7 @@ const AddTodo = () => {
         .then((res) => {
           setAllTodo([...allTodo, res.data]);
           setInputTodo("");
+          setSubmitLoading(false);
         })
         .catch((err) => console.log(err));
     }
@@ -42,11 +45,13 @@ const AddTodo = () => {
     setAllTodo(newList);
     setInputTodo("");
     setAddORedites(false);
+    setSubmitLoading(false);
   };
   const updateTodo = () => {
     if (inputTodo === "" || inputTodo === singleTodo.item.todo) {
       return;
     } else {
+      setSubmitLoading(true);
       axios
         .put(`${BASE_URL}/todos/api/${singleTodo.item._id}`, {
           _id: singleTodo.item._id,

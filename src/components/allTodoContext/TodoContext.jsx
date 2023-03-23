@@ -11,6 +11,7 @@ const TodoContext = ({ children }) => {
   const [addORedite, setAddORedites] = useState(false);
   const [singleTodo, setSingleTodo] = useState("");
   const [loading, setLOading] = useState(false);
+  const [submitLoading, setSubmitLoading] = useState(false);
 
   async function getTodos() {
     axios
@@ -38,6 +39,8 @@ const TodoContext = ({ children }) => {
         singleTodo,
         setSingleTodo,
         loading,
+        submitLoading,
+        setSubmitLoading,
       }}
     >
       {children}

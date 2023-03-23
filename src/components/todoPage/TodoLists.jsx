@@ -17,6 +17,8 @@ const TodoLists = () => {
     setAddORedites,
     setSingleTodo,
     loading,
+    setSubmitLoading,
+    submitLoading,
   } = useContext(getAllTodoList);
 
   // remove todo and update todo
@@ -25,8 +27,10 @@ const TodoLists = () => {
     const updateList = newList.filter((item) => !(item._id === value._id));
     setAllTodo(updateList);
     setInputTodo("");
+    setSubmitLoading(false);
   };
   const removeTodo = (item) => {
+    setSubmitLoading(true);
     axios
       .delete(`${BASE_URL}/todos/api/${item._id}`)
       .then((res) => removeUpdate(res.data))
@@ -49,8 +53,10 @@ const TodoLists = () => {
       }
     });
     setAllTodo(newlist);
+    setSubmitLoading(false);
   };
   const likeBTN = (item) => {
+    setSubmitLoading(true);
     axios
       .put(`${BASE_URL}/todos/api/${item._id}`, {
         like: !item.like,
@@ -106,6 +112,11 @@ const TodoLists = () => {
 
   return (
     <div>
+      {submitLoading ? (
+        <div className="flex justify-center items-center w-full h-full">
+          <Loader />
+        </div>
+      ) : undefined}
       {loading ? (
         <>
           <h1 className="text-xl font-bold py-3">Lists Of Todos</h1>
