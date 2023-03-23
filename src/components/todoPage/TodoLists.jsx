@@ -5,6 +5,7 @@ import { FaPencilAlt } from "react-icons/fa";
 import { AiFillLike } from "react-icons/ai";
 import { AiOutlineLike } from "react-icons/ai";
 import axios from "axios";
+import Loader from "./Loader";
 
 const TodoLists = () => {
   const {
@@ -105,14 +106,19 @@ const TodoLists = () => {
 
   return (
     <div>
-      {loading ? <h1>data is here</h1> : <h1>loading</h1>}
-      <h1 className="text-xl font-bold py-3">Lists Of Todos</h1>
-      {allTodo.length > 0 ? (
-        <div className="flex flex-col gap-2">{displayTodos}</div>
+      {loading ? (
+        <>
+          <h1 className="text-xl font-bold py-3">Lists Of Todos</h1>
+          {allTodo.length > 0 ? (
+            <div className="flex flex-col gap-2">{displayTodos}</div>
+          ) : (
+            <h1 className="text-2xl font-semibold font-signature-1">
+              Nothing Here !
+            </h1>
+          )}
+        </>
       ) : (
-        <h1 className="text-2xl font-semibold font-signature-1">
-          Nothing Here !
-        </h1>
+        <Loader />
       )}
     </div>
   );
