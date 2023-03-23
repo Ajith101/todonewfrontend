@@ -64,9 +64,9 @@ const TodoLists = () => {
       return (
         <div
           key={id}
-          className="bg-[#d3fbffde] w-full flex gap-2 justify-between pr-5 p-1 border-[2px] border-white rounded-md"
+          className="bg-[#defdffe8] w-full flex gap-2 justify-between pr-5 p-1 border-[2px] border-white rounded-md"
         >
-          <div className="flex w-[60%] items-center gap-3">
+          <div className="flex font-font-2 text-xl w-[60%] items-center gap-3">
             <h1>
               {id + 1}
               {".) "}
@@ -108,7 +108,9 @@ const TodoLists = () => {
       {allTodo.length > 0 ? (
         <div className="flex flex-col gap-2">{displayTodos}</div>
       ) : (
-        <h1 className="text-xl font-bold">Nothing Here !</h1>
+        <h1 className="text-2xl font-semibold font-signature-1">
+          Nothing Here !
+        </h1>
       )}
     </div>
   );
