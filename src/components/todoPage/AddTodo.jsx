@@ -71,7 +71,7 @@ const AddTodo = () => {
           onClick={() => (addORedite ? updateTodo() : addTodoBTn())}
           className="bg-green-700 hover:bg-blue-700 text-white text-lg px-3 py-2 text-center"
         >
-          {addORedite ? "Update Todo" : "Add Notes"}
+          {addORedite ? "Update" : "Add Notes"}
         </button>
       </div>
     </div>
