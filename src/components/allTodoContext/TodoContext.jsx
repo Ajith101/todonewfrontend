@@ -1,7 +1,7 @@
 import React, { createContext, useEffect, useState } from "react";
 import axios from "axios";
 
-export const BASE_URL = "https://todonewbcknd.onrender.com/";
+export const BASE_URL = "https://todonewbcknd.onrender.com";
 
 export const getAllTodoList = createContext();
 
