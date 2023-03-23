@@ -13,14 +13,13 @@ const TodoContext = ({ children }) => {
   const [loading, setLOading] = useState(false);
 
   async function getTodos() {
-    setLOading(true);
     axios
       .get(`${BASE_URL}/todos/api/`)
       .then((res) => {
         setAllTodo(res.data);
       })
       .catch((err) => console.log(err));
-    setLOading(false);
+    setLOading(true);
   }
 
   useEffect(() => {

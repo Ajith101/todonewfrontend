@@ -105,7 +105,7 @@ const TodoLists = () => {
 
   return (
     <div>
-      {loading ? <h1>loading</h1> : <h1>testing</h1>}
+      {loading ? <h1>data is here</h1> : <h1>loading</h1>}
       <h1 className="text-xl font-bold py-3">Lists Of Todos</h1>
       {allTodo.length > 0 ? (
         <div className="flex flex-col gap-2">{displayTodos}</div>
