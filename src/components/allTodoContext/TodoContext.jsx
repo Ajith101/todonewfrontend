@@ -17,9 +17,9 @@ const TodoContext = ({ children }) => {
       .get(`${BASE_URL}/todos/api/`)
       .then((res) => {
         setAllTodo(res.data);
+        setLOading(true);
       })
       .catch((err) => console.log(err));
-    setLOading(true);
   }
 
   useEffect(() => {
