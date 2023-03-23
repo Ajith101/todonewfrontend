@@ -118,7 +118,10 @@ const TodoLists = () => {
           )}
         </>
       ) : (
-        <Loader />
+        <div className="flex justify-center items-center">
+          {" "}
+          <Loader />
+        </div>
       )}
     </div>
   );
