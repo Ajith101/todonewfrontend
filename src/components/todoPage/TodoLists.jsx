@@ -7,6 +7,8 @@ import { AiOutlineLike } from "react-icons/ai";
 import axios from "axios";
 import Loader from "./Loader";
 import { useNavigate } from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const TodoLists = () => {
   const navigate = useNavigate();
@@ -22,6 +24,29 @@ const TodoLists = () => {
     setEdite,
   } = useContext(getAllTodoList);
 
+  const removeNOTIFY = () =>
+    toast.success("Item Removed !!", {
+      position: "top-right",
+      autoClose: 2000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+    });
+  const likeNOTIFY = (value) =>
+    toast.success(`${value ? "liked" : "You Just Unliked !"}`, {
+      position: "top-center",
+      autoClose: 2000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "colored",
+    });
+
   // remove todo and update todo
   const removeUpdate = (value) => {
     const newList = [...allTodo];
@@ -30,6 +55,7 @@ const TodoLists = () => {
     setInputTodo("");
     setSubmitLoading(false);
     setAddORedites(false);
+    removeNOTIFY();
   };
   const removeTodo = (item) => {
     setSubmitLoading(true);
@@ -56,6 +82,7 @@ const TodoLists = () => {
     });
     setAllTodo(newlist);
     setSubmitLoading(false);
+    likeNOTIFY(value.like);
   };
   const likeBTN = (item) => {
     setSubmitLoading(true);
@@ -120,6 +147,7 @@ const TodoLists = () => {
 
   return (
     <div>
+      <ToastContainer />
       {submitLoading ? (
         <div className="loader">
           <Loader />

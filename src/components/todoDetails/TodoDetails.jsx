@@ -4,8 +4,21 @@ import { useParams } from "react-router-dom";
 import { BASE_URL, getAllTodoList } from "../allTodoContext/TodoContext";
 import Header from "../Header";
 import Loader from "../todoPage/Loader";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const TodoDetails = () => {
+  const notifyUpdate = () =>
+    toast.success("Updated Succesfully", {
+      position: "top-right",
+      autoClose: 2000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+    });
   const params = useParams();
   const { allTodo, setSubmitLoading, submitLoading } =
     useContext(getAllTodoList);
@@ -45,6 +58,7 @@ const TodoDetails = () => {
           }
         });
         setSubmitLoading(false);
+        notifyUpdate();
       })
       .catch((err) => console.log(err));
   };
@@ -52,6 +66,7 @@ const TodoDetails = () => {
   return (
     <>
       <Header />
+      <ToastContainer />
 
       <div className="flex justify-center items-center">
         <div className="bg-yellow-200 w-[90%] md:w-[60%] p-3 my-4 rounded-md md:my-10">
@@ -63,7 +78,8 @@ const TodoDetails = () => {
             </div>
           ) : (
             <h2 className="py-2 text-slate-500">
-              Added on : {singleTodo.time}{" "}
+              Added on :{" "}
+              <span className="text-slate-600">{singleTodo.time}</span>
             </h2>
           )}
           <div className="flex gap-5 justify-between">

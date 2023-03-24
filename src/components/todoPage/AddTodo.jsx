@@ -1,8 +1,32 @@
 import axios from "axios";
 import React, { useContext } from "react";
 import { BASE_URL, getAllTodoList } from "../allTodoContext/TodoContext";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const AddTodo = () => {
+  const notify = () =>
+    toast.success("Added Succesfully", {
+      position: "top-right",
+      autoClose: 2000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+    });
+  const notifyUpdate = () =>
+    toast.success("Updated Succesfully", {
+      position: "top-right",
+      autoClose: 2000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+    });
   const dtates = new Date();
   const dTime = dtates.toLocaleTimeString();
   const getDate = dtates.toDateString();
@@ -29,12 +53,13 @@ const AddTodo = () => {
         .post(`${BASE_URL}`, {
           todo: inputTodo,
           like: false,
-          time: `${getDate} ${dTime}`,
+          time: `${getDate} , ${dTime}`,
         })
         .then((res) => {
           setAllTodo([...allTodo, res.data]);
           setInputTodo("");
           setSubmitLoading(false);
+          notify();
         })
         .catch((err) => console.log(err));
     }
@@ -52,6 +77,7 @@ const AddTodo = () => {
     setInputTodo("");
     setAddORedites(false);
     setSubmitLoading(false);
+    notifyUpdate();
   };
   const updateTodo = () => {
     if (inputTodo === "" || inputTodo === singleTodo.item.todo) {
@@ -70,22 +96,26 @@ const AddTodo = () => {
   };
 
   return (
-    <div className="flex gap-5 justify-center w-full items-center">
-      <input
-        value={inputTodo}
-        onChange={(e) => setInputTodo(e.target.value)}
-        type="text"
-        className="border-[2px] w-[60%] px-1 py-2"
-      />
-      <div className="w-[40%]">
-        <button
-          onClick={() => (addORedite ? updateTodo() : addTodoBTn())}
-          className="bg-green-700 hover:bg-blue-700 text-white text-lg px-3 py-2 text-center"
-        >
-          {addORedite ? "Update" : "Add Notes"}
-        </button>
+    <>
+      <ToastContainer />
+
+      <div className="flex gap-5 justify-center w-full items-center">
+        <input
+          value={inputTodo}
+          onChange={(e) => setInputTodo(e.target.value)}
+          type="text"
+          className="border-[2px] w-[60%] px-1 py-2"
+        />
+        <div className="w-[40%]">
+          <button
+            onClick={() => (addORedite ? updateTodo() : addTodoBTn())}
+            className="bg-green-700 hover:bg-blue-700 text-white text-lg px-3 py-2 text-center"
+          >
+            {addORedite ? "Update" : "Add Notes"}
+          </button>
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 
