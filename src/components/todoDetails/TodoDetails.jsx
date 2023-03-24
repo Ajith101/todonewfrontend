@@ -38,6 +38,7 @@ const TodoDetails = () => {
     todoDatass();
   }, []);
   const updateTodo = () => {
+    setSubmitLoading(true);
     axios
       .put(`${BASE_URL}${params.id}`, {
         todo: newData,
@@ -49,6 +50,7 @@ const TodoDetails = () => {
             item.todo = res.data.todo;
           }
         });
+        setSubmitLoading(false);
       })
       .catch((err) => console.log(err));
   };
