@@ -1,8 +1,8 @@
 import React, { createContext, useEffect, useState } from "react";
 import axios from "axios";
 
-export const BASE_URL = "https://todonewbcknd.onrender.com/todos/api/";
-// export const BASE_URL = "http://localhost:2050/todos/api/";
+// export const BASE_URL = "https://todonewbcknd.onrender.com/todos/api/";
+export const BASE_URL = "http://localhost:2050/todos/api/";
 
 export const getAllTodoList = createContext();
 
