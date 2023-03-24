@@ -71,6 +71,7 @@ const AddTodo = () => {
     newList.forEach((items) => {
       if (items._id === values._id) {
         items.todo = values.todo;
+        items.edited = values.edited;
       }
     });
     setAllTodo(newList);
@@ -89,6 +90,7 @@ const AddTodo = () => {
           _id: singleTodo.item._id,
           todo: inputTodo,
           like: singleTodo.item.like,
+          edited: `${getDate} , ${dTime}`,
         })
         .then((res) => updateEdite(res.data))
         .catch((err) => console.log(err));

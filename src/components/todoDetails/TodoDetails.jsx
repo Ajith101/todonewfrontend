@@ -20,16 +20,23 @@ const TodoDetails = () => {
       theme: "light",
     });
   const params = useParams();
-  const { allTodo, setSubmitLoading, submitLoading } =
+  const { allTodo, setSubmitLoading, submitLoading, setAllTodo } =
     useContext(getAllTodoList);
   const [newData, setNewdata] = useState("");
   const [singleTodo, setSingleTodo] = useState("");
+  const [displayUpdatedTime, setDisplayUpdatedTime] = useState(null);
+
+  // date and time
+  const dtates = new Date();
+  const dTime = dtates.toLocaleTimeString();
+  const getDate = dtates.toDateString();
 
   const settingSingleTodo = (value) => {
     setNewdata(value.todo);
     setSingleTodo(value);
     setSubmitLoading(false);
   };
+
   const todoDatass = async () => {
     setSubmitLoading(true);
     await axios
@@ -44,25 +51,53 @@ const TodoDetails = () => {
   useEffect(() => {
     todoDatass();
   }, []);
+
   const updateTodo = () => {
     setSubmitLoading(true);
     axios
       .put(`${BASE_URL}${params.id}`, {
         todo: newData,
+        edited: `${getDate} , ${dTime}`,
       })
       .then((res) => {
         const newList = [...allTodo];
         newList.forEach((item) => {
           if (item._id === params.id) {
             item.todo = res.data.todo;
+            item.edited = res.data.edited;
           }
         });
+        setAllTodo(newList);
         setSubmitLoading(false);
         notifyUpdate();
+        setDisplayUpdatedTime(res.data.edited);
       })
       .catch((err) => console.log(err));
   };
 
+  const displayUpdatedDate =
+    allTodo &&
+    allTodo
+      .filter((item) => {
+        return item._id === params.id;
+      })
+      .map((item, id) => {
+        return (
+          <div key={id}>
+            <h2 className="py-2 text-slate-500">
+              Added on :{" "}
+              <span className="text-slate-600 text-sm">{item.time}</span>
+            </h2>
+            {item.edited && (
+              <h2 className="py-2 text-slate-500">
+                Edited on :{" "}
+                <span className="text-slate-600 text-sm">{item.edited}</span>
+              </h2>
+            )}
+          </div>
+        );
+      });
+  // console.log(displayUpdatedTime);
   return (
     <>
       <Header />
@@ -76,12 +111,9 @@ const TodoDetails = () => {
             <div className="loader">
               <Loader />
             </div>
-          ) : (
-            <h2 className="py-2 text-slate-500">
-              Added on :{" "}
-              <span className="text-slate-600">{singleTodo.time}</span>
-            </h2>
-          )}
+          ) : undefined}
+          {displayUpdatedDate}
+
           <div className="flex gap-5 justify-between">
             <textarea
               className="w-[70%] h-auto p-1"
