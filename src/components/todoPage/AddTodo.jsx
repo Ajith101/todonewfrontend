@@ -3,6 +3,11 @@ import React, { useContext } from "react";
 import { BASE_URL, getAllTodoList } from "../allTodoContext/TodoContext";
 
 const AddTodo = () => {
+  const dtates = new Date();
+  const dTime = dtates.toLocaleTimeString();
+  const getDate = dtates.toDateString();
+
+  // console.log(getDate, dTime);
   const {
     inputTodo,
     setInputTodo,
@@ -24,6 +29,7 @@ const AddTodo = () => {
         .post(`${BASE_URL}`, {
           todo: inputTodo,
           like: false,
+          time: `${getDate} ${dTime}`,
         })
         .then((res) => {
           setAllTodo([...allTodo, res.data]);

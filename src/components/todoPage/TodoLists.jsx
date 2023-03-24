@@ -81,7 +81,7 @@ const TodoLists = () => {
               navigate(`/details/${item._id}`);
               setEdite(item.todo);
             }}
-            className="flex font-font-2 text-xl w-[60%] items-center gap-3"
+            className="flex overflow-hidden font-font-2 text-xl w-[60%] items-center gap-3"
           >
             <h1>
               {id + 1}

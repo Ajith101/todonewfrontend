@@ -7,14 +7,8 @@ import Loader from "../todoPage/Loader";
 
 const TodoDetails = () => {
   const params = useParams();
-  const {
-    allTodo,
-    setAllTodo,
-    setEdite,
-    edite,
-    setSubmitLoading,
-    submitLoading,
-  } = useContext(getAllTodoList);
+  const { allTodo, setSubmitLoading, submitLoading } =
+    useContext(getAllTodoList);
   const [newData, setNewdata] = useState("");
   const [singleTodo, setSingleTodo] = useState("");
 
@@ -62,28 +56,32 @@ const TodoDetails = () => {
       <div className="flex justify-center items-center">
         <div className="bg-yellow-200 w-[90%] md:w-[60%] p-3 my-4 rounded-md md:my-10">
           <h1 className="text-2xl mb-4 font-bold font-font-2">Todos Deatils</h1>
+
           {submitLoading ? (
-            <div className="flex justify-center items-center">
+            <div className="loader">
               <Loader />
             </div>
           ) : (
-            <div className="flex gap-5 justify-between">
-              <textarea
-                className="w-[70%] h-auto p-1"
-                type="text"
-                onChange={(e) => setNewdata(e.target.value)}
-                value={newData}
-              />
-              <div className="w-[30%]">
-                <button
-                  onClick={() => updateTodo()}
-                  className="bg-green-700 hover:bg-blue-700 text-white text-lg px-3 py-2 text-center"
-                >
-                  Update
-                </button>
-              </div>
-            </div>
+            <h2 className="py-2 text-slate-500">
+              Added on : {singleTodo.time}{" "}
+            </h2>
           )}
+          <div className="flex gap-5 justify-between">
+            <textarea
+              className="w-[70%] h-auto p-1"
+              type="text"
+              onChange={(e) => setNewdata(e.target.value)}
+              value={newData}
+            />
+            <div className="w-[30%]">
+              <button
+                onClick={() => (submitLoading ? undefined : updateTodo())}
+                className="bg-green-700 hover:bg-blue-700 text-white text-lg px-3 py-2 text-center"
+              >
+                Update
+              </button>
+            </div>
+          </div>
         </div>
       </div>
     </>

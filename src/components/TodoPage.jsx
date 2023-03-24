@@ -9,6 +9,7 @@ const TodoPage = () => {
         <h1 className="text-2xl mb-4 font-bold font-font-2">
           Add Your Favorite notes Here
         </h1>
+
         <AddTodo />
         <TodoLists />
       </div>
