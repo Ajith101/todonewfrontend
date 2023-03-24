@@ -21,7 +21,7 @@ const AddTodo = () => {
     } else {
       setSubmitLoading(true);
       axios
-        .post(`${BASE_URL}/todos/api/`, {
+        .post(`${BASE_URL}`, {
           todo: inputTodo,
           like: false,
         })
@@ -53,7 +53,7 @@ const AddTodo = () => {
     } else {
       setSubmitLoading(true);
       axios
-        .put(`${BASE_URL}/todos/api/${singleTodo.item._id}`, {
+        .put(`${BASE_URL}${singleTodo.item._id}`, {
           _id: singleTodo.item._id,
           todo: inputTodo,
           like: singleTodo.item.like,

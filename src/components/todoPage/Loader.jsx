@@ -13,7 +13,7 @@ const Loader = () => {
           cy="20"
           r="18"
           fill="none"
-          stroke-width="2"
+          strokeWidth="2"
           stroke="red"
         />
         <circle
@@ -21,10 +21,10 @@ const Loader = () => {
           cy="20"
           r="18"
           fill="none"
-          stroke-width="2"
+          strokeWidth="2"
           stroke="blue"
-          stroke-dasharray="89, 200"
-          stroke-dashoffset="0"
+          strokeDasharray="89, 200"
+          strokeDashoffset="0"
         >
           <animateTransform
             attributeName="transform"

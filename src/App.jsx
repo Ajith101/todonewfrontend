@@ -7,9 +7,7 @@ const App = () => {
   return (
     <>
       <Header />
-      <TodoContext>
-        <TodoPage />
-      </TodoContext>
+      <TodoPage />
     </>
   );
 };
