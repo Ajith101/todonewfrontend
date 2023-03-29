@@ -25,6 +25,9 @@ const TodoDetails = () => {
   const [newData, setNewdata] = useState("");
   const [singleTodo, setSingleTodo] = useState("");
   const [displayUpdatedTime, setDisplayUpdatedTime] = useState(null);
+  const [justATurnON, setJustATurnON] = useState(false);
+  const [justTodo, setJustTodo] = useState("");
+  const [justTodoONe, setJustTodoONE] = useState();
 
   // date and time
   const dtates = new Date();
@@ -54,6 +57,7 @@ const TodoDetails = () => {
 
   const updateTodo = () => {
     setSubmitLoading(true);
+
     axios
       .put(`${BASE_URL}${params.id}`, {
         todo: newData,
@@ -67,10 +71,26 @@ const TodoDetails = () => {
             item.edited = res.data.edited;
           }
         });
+        setJustATurnON(true);
         setAllTodo(newList);
         setSubmitLoading(false);
         notifyUpdate();
         setDisplayUpdatedTime(res.data.edited);
+      })
+      .catch((err) => console.log(err));
+    axios
+      .patch(`${BASE_URL}${params.id}`, {
+        editedList: `${getDate} , ${dTime}`,
+      })
+      .then((res) => {
+        const newList = [...allTodo];
+        newList.forEach((item) => {
+          if (item._id === params.id) {
+            item.editedList = [...item.editedList, `${getDate} , ${dTime}`];
+          }
+        });
+
+        setAllTodo(newList);
       })
       .catch((err) => console.log(err));
   };
@@ -97,7 +117,31 @@ const TodoDetails = () => {
           </div>
         );
       });
-  // console.log(displayUpdatedTime);
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    console.log("form SubMitted");
+  };
+
+  const modifiedDetails =
+    allTodo &&
+    allTodo
+      .filter((item) => {
+        return item._id === params.id;
+      })
+      .map((items, id) => {
+        return items.editedList.map((itemess, ids) => {
+          return (
+            <div key={ids}>
+              <h2 className="py-2 text-slate-500">
+                {ids + 1} Edited on :{" "}
+                <span className="text-slate-600 text-sm">{itemess}</span>
+              </h2>
+            </div>
+          );
+        });
+      });
+
   return (
     <>
       <Header />
@@ -106,14 +150,12 @@ const TodoDetails = () => {
       <div className="flex justify-center items-center">
         <div className="bg-yellow-200 w-[90%] md:w-[60%] p-3 my-4 rounded-md md:my-10">
           <h1 className="text-2xl mb-4 font-bold font-font-2">Todos Deatils</h1>
-
           {submitLoading ? (
             <div className="loader">
               <Loader />
             </div>
           ) : undefined}
           {displayUpdatedDate}
-
           <div className="flex gap-5 justify-between">
             <textarea
               className="w-[70%] h-auto p-1"
@@ -129,6 +171,11 @@ const TodoDetails = () => {
                 Update
               </button>
             </div>
+          </div>
+          <div className="my-4">
+            {" "}
+            <h1 className="text-xl font-semibold">Modifed Details</h1>{" "}
+            {modifiedDetails}
           </div>
         </div>
       </div>
